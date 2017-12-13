@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search Page</title>
+	<style>
+		#f{text-align: center;}
+		.b{padding-top: 225px;}
+		#i{	color: grey;
+			padding: 8px 20px;
+			border-color: white;}
+			#a{	padding: 12px 20px;
+				width: 50%;
+				margin: 8px 0;
+				box-sizing: border-box;
+				border-color: white;}
+	    #output{background-color: lightgrey;
+	   padding: 20px 60px;
+	   margin-top: 130px; }
+     a{ color: black;
+     text-decoration: none; }
+	</style>
+</head>
+<body onload="getlocation()" onunload="document.getElementById(date).innerHTML=Date()">
+ <form class="b" action="">
+ <div id="f">
+	<img src="" alt="">	<br>
+	<input type="text" name="q" placeholder="Search" id="a"><br><br>
+	<input type="submit" name="" value="Search" id="i">
+  <button formaction="" id="i">I'm Feeling Lucky</button>
+  </div>
+  </form><br>
+  <div id="output"></div>
+  <div id="date"> </div>
+<script src="http://code.jquery.com/jquery-2.2.4.min.js">
+  </script>
+  <script>
+		var x= document.getElementById('output');
+     function getlocation() {
+     	if (navigator.geolocation) {
+     		navigator.geolocation.getCurrentPosition(showposition);
+     	}
+     	else{
+     		x.innerHTML= "browser not support"
+     	}
+     }
+     function showposition(position){
+
+        var locapi = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=true";
+$.get({
+        	url : locapi,
+        	success: function(data){
+        		console.log(data);
+        		x.innerHTML ="Your location is ";
+        		x.innerHTML += data.results[0].address_components[2].long_name+", ";
+        		x.innerHTML += data.results[0].address_components[4].long_name+", ";
+        		x.innerHTML += data.results[0].address_components[5].long_name;
+        	}
+ });
+     }
+	</script>
+</body>
+</html>
